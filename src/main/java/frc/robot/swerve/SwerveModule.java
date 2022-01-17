@@ -49,16 +49,15 @@ public class SwerveModule {
     );
 
     public SwerveModule(int driveMotorId,
-                        int turnMotorId, int digitalPWMport) {
+                        int turnMotorId, 
+                        int digitalEncoderPort) {
         driveMotor = new CANSparkMax(driveMotorId, MOTOR_TYPE);
         driveEncoder = driveMotor.getAlternateEncoder(COUNTS_PER_REV);
 
         turnMotor = new CANSparkMax(turnMotorId, MOTOR_TYPE);
         turnEncoder = driveMotor.getAlternateEncoder(COUNTS_PER_REV);
 
-        rotationPWMEncoder = new DutyCycleEncoder(digitalPWMport);
-
-        rotationPWMEncoder.setDutyCycleRange(0, 4096);
+        rotationPWMEncoder = new DutyCycleEncoder(digitalEncoderPort);
     }
 
 
@@ -72,24 +71,17 @@ public class SwerveModule {
     }
 
     public double turnAngleRadians() {
-        return rotationPWMEncoder.get();
-        //return turnEncoder.getPosition();
+        return rotationPWMEncoder.get() + rotationPWMEncoder.getPositionOffset();
     }
 
     public void setState(SwerveModuleState state) {
         state = SwerveModuleState.optimize(state, getTurnAngle());
 
-        // double drivePower = driveController.calculate(
-        //         velocityMetersPerSecond(),
-        //         state.speedMetersPerSecond
-        // );
-
         double turnPower = turnController.calculate(
                 turnAngleRadians(),
                 state.angle.getRadians()
         );
-
-        //driveMotor.set(drivePower);
+        
         turnMotor.set(turnPower);
 
         driveMotor.set(state.speedMetersPerSecond);

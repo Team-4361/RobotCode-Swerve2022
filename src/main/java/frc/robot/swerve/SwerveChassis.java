@@ -32,6 +32,11 @@ public class SwerveChassis {
     private static final int BR_TURN_ID = 8;
     private static final int BL_TURN_ID = 5;
 
+    private static final int FR_DIO_ENCODER_PORT = 0;
+    private static final int FL_DIO_ENCODER_PORT = 3;
+    private static final int BR_DIO_ENCODER_PORT = 1;
+    private static final int BL_DIO_ENCODER_PORT = 2;
+
     private static final String NAME_FR = "FR";
     private static final String NAME_FL = "FL";
     private static final String NAME_BR = "BR";
@@ -42,12 +47,14 @@ public class SwerveChassis {
     private final SwerveModule backRight;
     private final SwerveModule backLeft;
 
+
+
     public SwerveChassis() {
         this(
-                new SwerveModule(FR_DRIVE_ID, FR_TURN_ID, 0),
-                new SwerveModule(FL_DRIVE_ID, FL_TURN_ID, 3),
-                new SwerveModule(BR_DRIVE_ID, BR_TURN_ID, 1),
-                new SwerveModule(BL_DRIVE_ID, BL_TURN_ID, 2)
+                new SwerveModule(FR_DRIVE_ID, FR_TURN_ID, FR_DIO_ENCODER_PORT),
+                new SwerveModule(FL_DRIVE_ID, FL_TURN_ID, FL_DIO_ENCODER_PORT),
+                new SwerveModule(BR_DRIVE_ID, BR_TURN_ID, BR_DIO_ENCODER_PORT),
+                new SwerveModule(BL_DRIVE_ID, BL_TURN_ID, BL_DIO_ENCODER_PORT)
         );
     }
 
