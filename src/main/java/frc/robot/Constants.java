@@ -9,6 +9,8 @@ public class Constants {
     public static final double FL_OFFSET = 0.986 * 2 * Math.PI;
     public static final double BR_OFFSET = -0.159 * 2 * Math.PI;
     public static final double BL_OFFSET = 0.478 * 2 * Math.PI;
+    
+    public static final double SWERVE_CHASSIS_SIDE_LENGTH = 0.762;
 
     private Constants() {
 
