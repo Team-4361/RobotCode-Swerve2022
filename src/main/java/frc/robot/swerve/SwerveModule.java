@@ -23,14 +23,15 @@ public class SwerveModule {
     private static final double DRIVE_PID_DERIVATIVE = 0;
     private static final double DRIVE_PID_PERIOD = 0.02;
 
-    private static final double TURN_PID_PROPORTIONAL = 0.1;
-    private static final double TURN_PID_INTEGRAL = 0;
-    private static final double TURN_PID_DERIVATIVE = 0;
+    private static final double TURN_PID_PROPORTIONAL = 0.01;
+    private static final double TURN_PID_INTEGRAL = 0.00;
+    private static final double TURN_PID_DERIVATIVE = 0.005;
     private static final double TURN_PID_PERIOD = 0.02;
 
     private final CANSparkMax driveMotor;
     private final RelativeEncoder driveEncoder;
     private final DutyCycleEncoder rotationPWMEncoder;
+    private final double offset;
 
     private final PIDController driveController = new PIDController(
             DRIVE_PID_PROPORTIONAL,
@@ -50,28 +51,36 @@ public class SwerveModule {
 
     public SwerveModule(int driveMotorId,
                         int turnMotorId, 
-                        int digitalEncoderPort) {
+                        int digitalEncoderPort,
+                        double offset) {
         driveMotor = new CANSparkMax(driveMotorId, MOTOR_TYPE);
         driveEncoder = driveMotor.getAlternateEncoder(COUNTS_PER_REV);
 
         turnMotor = new CANSparkMax(turnMotorId, MOTOR_TYPE);
         turnEncoder = driveMotor.getAlternateEncoder(COUNTS_PER_REV);
 
+        this.offset = offset;
+
         rotationPWMEncoder = new DutyCycleEncoder(digitalEncoderPort);
     }
 
-
-
     public Rotation2d getTurnAngle() {
-        return new Rotation2d(turnAngleRadians());
+        return new Rotation2d(turnAngleRadians() + offset);
     }
 
     public double velocityMetersPerSecond() {
         return driveEncoder.getVelocity();
     }
 
+    private static double fixAngle(double angle) {
+        while (angle > Math.PI * 2) angle -= Math.PI * 2;
+        while (angle < 0) angle += Math.PI * 2;
+        
+        return angle;
+    }
+
     public double turnAngleRadians() {
-        return rotationPWMEncoder.get() + rotationPWMEncoder.getPositionOffset();
+        return fixAngle((rotationPWMEncoder.get() + rotationPWMEncoder.getPositionOffset()) * 2 * Math.PI);
     }
 
     public void setState(SwerveModuleState state) {
@@ -84,7 +93,7 @@ public class SwerveModule {
         
         turnMotor.set(turnPower);
 
-        driveMotor.set(state.speedMetersPerSecond);
+        // driveMotor.set(state.speedMetersPerSecond);
     }
 
     public SwerveModuleState getState() {
@@ -95,10 +104,10 @@ public class SwerveModule {
     }
 
     public void updateDashboard(String prefix) {
-        String driveVelocity = String.format("%s - VELOCITY", prefix);
-        String drivePower = String.format("%s - Drive Power", prefix);
-        String turnPower = String.format("%s - TURN POWER", prefix);
-        String turnPosition = String.format("%s - TURN POSITION", prefix);
+        String driveVelocity = String.format("%s: vel", prefix);
+        String drivePower = String.format("%s: pow", prefix);
+        String turnPower = String.format("%s: turn pow", prefix);
+        String turnPosition = String.format("%s: turn pos", prefix);
 
         SmartDashboard.putNumber(driveVelocity, velocityMetersPerSecond());
         SmartDashboard.putNumber(turnPower, turnMotor.get());

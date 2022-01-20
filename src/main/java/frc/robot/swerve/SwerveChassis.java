@@ -1,5 +1,7 @@
 package frc.robot.swerve;
 
+import frc.robot.Constants;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -51,10 +53,10 @@ public class SwerveChassis {
 
     public SwerveChassis() {
         this(
-                new SwerveModule(FR_DRIVE_ID, FR_TURN_ID, FR_DIO_ENCODER_PORT),
-                new SwerveModule(FL_DRIVE_ID, FL_TURN_ID, FL_DIO_ENCODER_PORT),
-                new SwerveModule(BR_DRIVE_ID, BR_TURN_ID, BR_DIO_ENCODER_PORT),
-                new SwerveModule(BL_DRIVE_ID, BL_TURN_ID, BL_DIO_ENCODER_PORT)
+                new SwerveModule(FR_DRIVE_ID, FR_TURN_ID, FR_DIO_ENCODER_PORT, Constants.FR_OFFSET),
+                new SwerveModule(FL_DRIVE_ID, FL_TURN_ID, FL_DIO_ENCODER_PORT, Constants.FL_OFFSET),
+                new SwerveModule(BR_DRIVE_ID, BR_TURN_ID, BR_DIO_ENCODER_PORT, Constants.BR_OFFSET),
+                new SwerveModule(BL_DRIVE_ID, BL_TURN_ID, BL_DIO_ENCODER_PORT, Constants.BL_OFFSET)
         );
     }
 
