@@ -80,7 +80,7 @@ public class SwerveModule {
     }
 
     public double turnAngleRadians() {
-        return fixAngle((rotationPWMEncoder.get() + rotationPWMEncoder.getPositionOffset()) * 2 * Math.PI);
+        return fixAngle(rotationPWMEncoder.get() * 2 * Math.PI);
     }
 
     public void setState(SwerveModuleState state) {
