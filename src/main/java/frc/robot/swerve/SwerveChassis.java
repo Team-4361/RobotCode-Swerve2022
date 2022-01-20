@@ -9,13 +9,13 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 
 public class SwerveChassis {
     private static final Translation2d SWERVE_FR_POSITION =
-            new Translation2d(1, 1);
+            new Translation2d(Constant.SWERVE_CHASSIS_SIDE_LENGTH/2, Constant.SWERVE_CHASSIS_SIDE_LENGTH/2);
     private static final Translation2d SWERVE_FL_POSITION =
-            new Translation2d(-1, 1);
+            new Translation2d(-Constant.SWERVE_CHASSIS_SIDE_LENGTH/2, Constant.SWERVE_CHASSIS_SIDE_LENGTH/2);
     private static final Translation2d SWERVE_BR_POSITION =
-            new Translation2d(1, -1);
+            new Translation2d(Constant.SWERVE_CHASSIS_SIDE_LENGTH/2, -Constant.SWERVE_CHASSIS_SIDE_LENGTH/2);
     private static final Translation2d SWERVE_BL_POSITION =
-            new Translation2d(-1, -1);
+            new Translation2d(-Constant.SWERVE_CHASSIS_SIDE_LENGTH/2, -Constant.SWERVE_CHASSIS_SIDE_LENGTH/2);
     private static final SwerveDriveKinematics SWERVE_KINEMATICS =
             new SwerveDriveKinematics(
                     SWERVE_FR_POSITION,
