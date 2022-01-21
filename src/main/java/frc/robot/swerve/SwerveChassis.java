@@ -24,19 +24,19 @@ public class SwerveChassis {
                     SWERVE_BL_POSITION
             );
 
-    private static final int FR_DRIVE_ID = 11;
-    private static final int FL_DRIVE_ID = 4;
-    private static final int BR_DRIVE_ID = 9;
+    private static final int FR_DRIVE_ID = 4;
+    private static final int FL_DRIVE_ID = 2;
+    private static final int BR_DRIVE_ID = 8;
     private static final int BL_DRIVE_ID = 6;
 
-    private static final int FR_TURN_ID = 10;
-    private static final int FL_TURN_ID = 3;
-    private static final int BR_TURN_ID = 8;
+    private static final int FR_TURN_ID = 3;
+    private static final int FL_TURN_ID = 1;
+    private static final int BR_TURN_ID = 7;
     private static final int BL_TURN_ID = 5;
 
-    private static final int FR_DIO_ENCODER_PORT = 0;
-    private static final int FL_DIO_ENCODER_PORT = 3;
-    private static final int BR_DIO_ENCODER_PORT = 1;
+    private static final int FR_DIO_ENCODER_PORT = 1;
+    private static final int FL_DIO_ENCODER_PORT = 0;
+    private static final int BR_DIO_ENCODER_PORT = 3;
     private static final int BL_DIO_ENCODER_PORT = 2;
 
     private static final String NAME_FR = "FR";

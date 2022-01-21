@@ -75,8 +75,7 @@ public class Robot extends TimedRobot {
     public void teleopPeriodic() {
         double x = xyStick.getX();
         double y = xyStick.getY();
-        double z = zStick.getX() * 2 * MATH.PI ;
-
+        double z = zStick.getX()  * 2 * Math.PI;
         Rotation2d rotation = gyro.getRotation2d();
 
         SmartDashboard.putNumber("X Input", x);
