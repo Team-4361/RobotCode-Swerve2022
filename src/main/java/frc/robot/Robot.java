@@ -73,9 +73,9 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopPeriodic() {
-        double x = xyStick.getX();
-        double y = xyStick.getY();
-        double z = zStick.getX()  * 2 * Math.PI;
+        double x = adjustJoystickValues(xyStick.getX(), 0.05);
+        double y = adjustJoystickValues(xyStick.getY(), 0.05);
+        double z = adjustJoystickValues(zStick.getX(), 0.05);
         Rotation2d rotation = gyro.getRotation2d();
 
         SmartDashboard.putNumber("X Input", x);
@@ -83,10 +83,21 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Z Input", z);
         SmartDashboard.putNumber("Gyro Angle", rotation.getDegrees());
 
+        
         ChassisSpeeds speeds =
-                ChassisSpeeds.fromFieldRelativeSpeeds(x, y, z, rotation);
+                ChassisSpeeds.fromFieldRelativeSpeeds(-x, y, z, Rotation2d.fromDegrees(0));
 
         chassis.drive(speeds);
+    }
+
+    //Adds a deadzone
+    public double adjustJoystickValues(double value, double deadzone){
+        if(Math.abs(value) > deadzone){
+            return value;
+        }
+        else{
+            return 0;
+        }
     }
 
     @Override

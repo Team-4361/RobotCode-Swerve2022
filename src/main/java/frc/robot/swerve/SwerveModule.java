@@ -22,7 +22,7 @@ public class SwerveModule {
     private static final double DRIVE_PID_DERIVATIVE = 0;
     private static final double DRIVE_PID_PERIOD = 0.02;
 
-    private static final double TURN_PID_PROPORTIONAL = 0.01;
+    private static final double TURN_PID_PROPORTIONAL = 0.2;
     private static final double TURN_PID_INTEGRAL = 0.00;
     private static final double TURN_PID_DERIVATIVE = 0;// = 0.005;
     private static final double TURN_PID_PERIOD = 0.02;
@@ -75,11 +75,11 @@ public class SwerveModule {
     //     return angle;
     // }
     public Rotation2d getTurnAngle() {
-        return new Rotation2d(turnAngleRadians()+offset);
+        return new Rotation2d(turnAngleRadians());
     }
 
     public double turnAngleRadians() {
-        return (rotationPWMEncoder.get() * 2 * Math.PI);
+        return offset + (rotationPWMEncoder.get() * 2 * Math.PI);
     }
 
     public void setState(SwerveModuleState state) {
@@ -92,7 +92,7 @@ public class SwerveModule {
         
         turnMotor.set(turnPower);
 
-        // driveMotor.set(state.speedMetersPerSecond);
+        driveMotor.set(state.speedMetersPerSecond);
     }
 
     public SwerveModuleState getState() {
