@@ -10,6 +10,9 @@ public class Constants {
     public static final double BR_OFFSET = -1.7 - (Math.PI/2);
     public static final double BL_OFFSET = 0.111 - (2*Math.PI) - (Math.PI/2) -(Math.PI);
 
+    public static final double DEADZONE = 0.05;
+    public static final int LEFT_HANDED_BUTTON = 9;
+
 
 
     
