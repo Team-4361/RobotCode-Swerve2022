@@ -22,12 +22,12 @@ public class Robot extends TimedRobot {
     private boolean leftHandedMode = false;
 
     private SwerveChassis chassis;
-    private Gyro gyro;
+    //private Gyro gyro;
 
     @Override
     public void robotInit() {
         this.chassis = new SwerveChassis();
-        this.gyro = new AHRS(SPI.Port.kMXP);
+        //this.gyro = new AHRS(SPI.Port.kMXP);
     }
 
     @Override
@@ -80,12 +80,12 @@ public class Robot extends TimedRobot {
         double x = adjustJoystickValues(xyStick.getX(), 0.05);
         double y = adjustJoystickValues(xyStick.getY(), 0.05);
         double z = adjustJoystickValues(zStick.getTwist(), 0.05);
-        Rotation2d rotation = gyro.getRotation2d();
+        //Rotation2d rotation = gyro.getRotation2d();
 
         SmartDashboard.putNumber("X Input", x);
         SmartDashboard.putNumber("Y Input", y);
         SmartDashboard.putNumber("Z Input", z);
-        SmartDashboard.putNumber("Gyro Angle", rotation.getDegrees());
+        //SmartDashboard.putNumber("Gyro Angle", rotation.getDegrees());
 
         // If the X button was pressed, change the orientation.
         if (xyStick.getRawButtonPressed(LEFT_HANDED_BUTTON)) {

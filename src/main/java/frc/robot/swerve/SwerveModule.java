@@ -5,7 +5,6 @@ import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -24,7 +23,7 @@ public class SwerveModule {
 
     private static final double TURN_PID_PROPORTIONAL = 0.2;
     private static final double TURN_PID_INTEGRAL = 0.00;
-    private static final double TURN_PID_DERIVATIVE = 0;// = 0.005;
+    private static final double TURN_PID_DERIVATIVE = 0;
     private static final double TURN_PID_PERIOD = 0.02;
 
     private final CANSparkMax driveMotor;
@@ -40,7 +39,6 @@ public class SwerveModule {
     );
 
     private final CANSparkMax turnMotor;
-    private final RelativeEncoder turnEncoder;
     private final PIDController turnController = new PIDController(
             TURN_PID_PROPORTIONAL,
             TURN_PID_INTEGRAL,
@@ -56,7 +54,6 @@ public class SwerveModule {
         driveEncoder = driveMotor.getAlternateEncoder(COUNTS_PER_REV);
 
         turnMotor = new CANSparkMax(turnMotorId, MOTOR_TYPE);
-        turnEncoder = driveMotor.getAlternateEncoder(COUNTS_PER_REV);
 
         this.offset = offset;
 
@@ -68,12 +65,6 @@ public class SwerveModule {
         return driveEncoder.getVelocity();
     }
 
-    // private static double fixAngle(double angle) {
-    //     while (angle > Math.PI * 2) angle -= Math.PI * 2;
-    //     while (angle < 0) angle += Math.PI * 2;
-        
-    //     return angle;
-    // }
     public Rotation2d getTurnAngle() {
         return new Rotation2d(turnAngleRadians());
     }
